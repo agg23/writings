@@ -1,4 +1,8 @@
-# Hacking the Ai Pin
++++
+date = '2025-10-04T20:27:09-07:00'
+draft = false
+title = 'Hacking the Ai Pin'
++++
 
 [Skip to the technical stuff](#first-access)
 

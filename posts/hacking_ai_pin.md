@@ -1,7 +1,7 @@
 +++
 date = '2025-10-04T20:27:09-07:00'
 draft = false
-title = 'Hacking the Ai Pin'
+title = 'Hacking the Humane Ai Pin'
 +++
 
 [Skip to the technical stuff](#first-access)
@@ -10,13 +10,13 @@ title = 'Hacking the Ai Pin'
 
 On February 18, 2025, Humane announced it would be shutting down all services for the always online Humane Ai Pin in ten days, [following a sale to HP](https://web.archive.org/web/20250219012718/https://humane.com/media/humane-hp). I had been vaguely aware of the Ai Pin, definitely more so than the average tech person, as I have a close friend who was one of the earliest adopters and eventually joined the Humane team to actively work on the device, but I ultimately knew little about them. I did know that they were small, had good industrial design, and had a cool laser. I also have drempt of a personal, local always listening device since I was a young teenager. I was a little more confident in my ability to help shape a niche device's ecosystem after my experiences driving the Analogue Pocket's growth, so I decided to go looking for disgruntled users looking to sell their devices.
 
-[PIN STOCK IMAGE]
+![Stock image of the Lunar Ai Pin](../images/hacking_ai_pin/lunar_stock_photo.webp)
 
 I relatively quickly was able to secure two Pins, three boosters, and a charging "egg" from Reddit for a total of $300 (a price that I originally thought might be too much, though I would later see them selling for $300-500 each). One of my Pins was supposed to be locked (no code from a previous owner), so possibly unusable, but that was OK, as we were here to learn and break things. I paid for expedited shipping so I could get the devices before the shutdown. Unfortunately for me, my two Pins arrived on the fated shutdown day February 28th... ...about 2 hours _after_ the servers were shut off. There was a big community call on the Humane community Discord server (they called themselves reHumane) as the servers were turned off where some big fans and current/previous Humane employees talked about their experiences. I found it to be a weird experience overall, but it was interesting to see how passionate people were about these devices. Unfortunately with the devices I had purchased, the "working" device had been factory reset. Turns out that without Humane's servers to talk to, you can never activate the device, so I was stuck in the onboarding screens. I would later acquire another Pin (a still sealed one) bringing the total to three, but I never got to experience what a working Ai Pin was like.
 
 At least I now had hardware. Now I needed a mechanism to connect the Pin to a computer. The Pin has four pads hidden behind a moon sticker at the bottom of the device; these pads are just raw USB 2.0. The only problem with connecting to them is they are 1.0mm pitch, which is quite small. To connect to test pads like this you use a dock called an interposer, often using pressure sensitive probes to contact the pads. There were some existing connector components that would maybe work, but they weren't 1.0mm pitch. I ended up buying 0.68mm diameter, 16.55mm fully extended spring probes from Amazon, and spent entirely way too long designing and iterating on a mechanism to allow a human to place these pins 1.0mm apart while still being able to solder wires to them. A mechanical engineer friend pointed out how stupid I was for not fanning them out, which proved to be the best strategy by far. [You can see my poor designs here](https://github.com/agg23/ai-pin-interposer). Eventually community members [GoinGhost](https://www.etsy.com/listing/1904242117/ai-pin-usb-dock-slim-final-ver-woptions) and [@MaxMaeder](https://openpin.org/about/interposers) produced more robust designs with proper PCBs and components, and I used those from then on. [I later produced revised 3D models](https://github.com/PenumbraOS/3dprints) for a better fit for Max's interposer.
 
-[PIN BOTTOM IMAGE]
+![Bottom of an Ai Pin with exposed pads](../images/hacking_ai_pin/exposed_pads.jpg)
 
 ## Examining leaked APKs
 

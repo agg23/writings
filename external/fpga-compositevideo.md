@@ -1,5 +1,5 @@
 +++
-date = '2023-8-23T11:13:09-07:00'
+date = '2023-08-23T11:13:09-07:00'
 draft = false
-title = 'Hacking the Ai Pin'
+title = 'FPGA Composite NTSC Video'
 +++

@@ -8,17 +8,20 @@ title = 'Hacking the Humane Ai Pin'
 
 ## Shutdown announcement
 
-On February 18, 2025, Humane announced it would be shutting down all services for the always online Humane Ai Pin in ten days, [following a sale to HP](https://web.archive.org/web/20250219012718/https://humane.com/media/humane-hp). I had been vaguely aware of the Ai Pin, definitely more so than the average tech person, as I have a close friend who was one of the earliest adopters and eventually joined the Humane team to actively work on the device, but I ultimately knew little about them. I did know that they were small, had good industrial design, and had a cool laser. I also have drempt of a personal, local always listening device since I was a young teenager. I was a little more confident in my ability to help shape a niche device's ecosystem after my experiences driving the Analogue Pocket's growth, so I decided to go looking for disgruntled users looking to sell their devices.
+On February 18, 2025, Humane announced it would be shutting down all services for the always online Humane Ai Pin in ten days, [following a sale to HP](https://web.archive.org/web/20250219012718/https://humane.com/media/humane-hp). I had been vaguely aware of the Ai Pin, definitely more so than the average tech person, as I have a close friend who was one of the earliest adopters and eventually joined the Humane team to actively work on the device, but I ultimately knew little about them. I did know that they were small, ran Android, had good industrial design, and had a cool laser. I also have drempt of a personal, local always listening device since I was a young teenager. I was a little more confident in my ability to help shape a niche device's ecosystem after my experiences driving the Analogue Pocket's growth, so I decided to go looking for disgruntled users looking to sell their devices.
 
 ![Stock image of the Lunar Ai Pin](../images/hacking_ai_pin/lunar_stock_photo.webp)
 
-I relatively quickly was able to secure two Pins, three boosters, and a charging "egg" from Reddit for a total of $300 (a price that I originally thought might be too much, though I would later see them selling for $300-500 each). One of my Pins was supposed to be locked (no code from a previous owner), so possibly unusable, but that was OK, as we were here to learn and break things. I paid for expedited shipping so I could get the devices before the shutdown. Unfortunately for me, my two Pins arrived on the fated shutdown day February 28th... ...about 2 hours _after_ the servers were shut off. There was a big community call on the Humane community Discord server (they called themselves reHumane) as the servers were turned off where some big fans and current/previous Humane employees talked about their experiences. I found it to be a weird experience overall, but it was interesting to see how passionate people were about these devices. Unfortunately with the devices I had purchased, the "working" device had been factory reset. Turns out that without Humane's servers to talk to, you can never activate the device, so I was stuck in the onboarding screens. I would later acquire another Pin (a still sealed one) bringing the total to three, but I never got to experience what a working Ai Pin was like.
+I relatively quickly was able to secure two Pins, three boosters, and a charging "egg" from Reddit for a total of $300 (a price that I originally thought might be too much, though I would later see them selling for $300-500 each). One of my Pins was supposed to be locked (no code from a previous owner), so possibly unusable, but that was OK, as we were here to learn and break things. I paid for expedited shipping so I could get the devices before the shutdown. Unfortunately for me, my two Pins arrived on the fated shutdown day February 28th... ...about 2 hours _after_ the servers were shut off. There was a big community call on the Humane community Discord server (they called themselves reHumane) counting down as the servers were turned off. Some big fans and current/previous Humane employees spoke about their experiences with the Ai Pin. I found it to be a weird experience overall, but it was interesting to see how passionate people were about these devices. Unfortunately with the devices I had purchased, the "working" device had been factory reset. Turns out that without Humane's servers to talk to, you can never activate the device, so I was stuck in the onboarding screens. I would later acquire another Pin (a still sealed one) bringing the total to three, but all three were stuck on onboarding, thus I never got to experience what a working Ai Pin was like.
 
-At least I now had hardware. Now I needed a mechanism to connect the Pin to a computer. The Pin has four pads hidden behind a moon sticker at the bottom of the device; these pads are just raw USB 2.0. The only problem with connecting to them is they are 1.0mm pitch, which is quite small. To connect to test pads like this you use a dock called an interposer, often using pressure sensitive probes to contact the pads. There were some existing connector components that would maybe work, but they weren't 1.0mm pitch. I ended up buying 0.68mm diameter, 16.55mm fully extended spring probes from Amazon, and spent entirely way too long designing and iterating on a mechanism to allow a human to place these pins 1.0mm apart while still being able to solder wires to them. A mechanical engineer friend pointed out how stupid I was for not fanning them out, which proved to be the best strategy by far. [You can see my poor designs here](https://github.com/agg23/ai-pin-interposer). Eventually community members [GoinGhost](https://www.etsy.com/listing/1904242117/ai-pin-usb-dock-slim-final-ver-woptions) and [@MaxMaeder](https://openpin.org/about/interposers) produced more robust designs with proper PCBs and components, and I used those from then on. [I later produced revised 3D models](https://github.com/PenumbraOS/3dprints) for a better fit for Max's interposer.
+At least I now had hardware. Now I needed a mechanism to connect the Pin to a computer. The Pin has four pads hidden behind a moon sticker at the bottom of the device; these pads are just raw USB 2.0 and expose standard Android ADB. The only problem with connecting to them is they are 1.0mm pitch, which is quite small. To connect to test pads on devices like this you generally use a dock called an interposer, often using pressure sensitive probes to contact the pads. There were some existing connector components that would maybe work, but they weren't 1.0mm pitch, so I was wary to pay for small quantities of a part that really required a PCB to be made. I ended up buying 0.68mm diameter, 16.55mm fully extended spring probes from Amazon, and spent entirely way too long designing and iterating on a mechanism to allow a human to place these pins 1.0mm apart while still being able to solder wires to them. A mechanical engineer friend pointed out the obvious better approach; fanning out the pins, which proved to be the best strategy by far. [You can see my poor designs here](https://github.com/agg23/ai-pin-interposer). Eventually community members [GoinGhost](https://www.etsy.com/listing/1904242117/ai-pin-usb-dock-slim-final-ver-woptions) and [@MaxMaeder](https://openpin.org/about/interposers) produced more robust designs with proper PCBs and components, and I used those from then on. [I later produced revised 3D models](https://github.com/PenumbraOS/3dprints) for a better fit for Max's interposer.
 
 ![Bottom of an Ai Pin with exposed pads](../images/hacking_ai_pin/exposed_pads.jpg)
 
 ## Examining leaked APKs
+
+> [!NOTE]
+> I am rather unfamiliar with Android, having last developed on it approximately 15 years ago (and only barely then). Gaining access to the Pin was a whole new set of things to learn. I am very skeptical about the future of generative AI as it is, its concerns for the future of humanity, copyright, and more, but I used this project as my first entry in trying to familiarize myself with appling LLMs for technical work. I can very confidently say that I could not have figured out what I did about Android without the help of LLMs. The codegen was of questionable worth, but the research was invaluable, even though there were several instances directed by LLM that wasted a double digit number of hours on something completely infeasible (but not trivially verifiable by someone uninformed like myself).
 
 My Pins were both factory reset, and with Humane's servers down, I couldn't activate them, so there wasn't much to play with. However, on the day of the Humane shutdown, there was some other excitement. Someone posted an Archive.org link to a number of leaked APKs ripped from a device. It's important to note that no one from my side of the story ever had anything to do with any distribution. No sharing, no using decompiled code, nothing. Given the leaks, with no working Pins and the lack of an interposer design, there wasn't much left for me to do besides scour through those leaked files. Since Android is primarily JVM bytecode based, it is trivial to decompile most applications into something rather resembling the original source code. Humane didn't obfuscate their binaries, so all of the original names (variables, classes, enums) were present, making the code reasonably easy to read. At this point we had a number of people actively researching.
 
@@ -31,10 +34,6 @@ Suddenly one day about a week in I got a random anonymous message on Signal cont
 ## First access
 
 As soon as I gained ADB access to the Pin I tried running a demo app, and a few minutes later I had it projecting my cat profile picture and displaying a live video feed from the camera. That's really good! Maybe we have full access to all of the hardware, and we're basically free to modify the device at will. I dumped as much of the filesystem as possible (which is necessarily incomplete due to the limited access due to non-root user) and figured how to disable the onboarding experience, dropping me into the (very non-functional) base `SystemNavigation` UI. However, attempting to connect to a remote HTTP server resulted in an exception and `avc` errors logged to the console.
-
-[TODO] Where to put this?
-
-I am rather unfamiliar with Android, having last developed on it approximately 15 years ago (and only barely then). Gaining access to the Pin was a whole new set of things to learn. I am very skeptical about the future of generative AI as it is, its concerns for the future of humanity, copyright, and more, but I used this project as my first entry in trying to familiarize myself with appling LLMs for technical work. I can very confidently say that I could not have figured out what I did about Android without the help of LLMs. The codegen was of questionable worth, but the research was invaluable, even though there were several instances directed by LLM that wasted a double digit number of hours on something completely infeasible (but not trivially verifiable by someone uninformed).
 
 ## Searching for a crack
 
@@ -219,11 +218,29 @@ We can use these processes in other SELinux contexts as relays to transmit data 
 
 So that's exactly what I do. Due to how Humane restricted the SELinux policy, certain parts of the system can only do certain things. For example, both `system` and `shell` users can access the internet, but `nfc` and `radio` cannot. All of those domains can talk to each other though, so I end up building a tree of bridges:
 
-[TODO]: Insert graph
-
-User's `untrusted_app` <-> `nfc` service (bridge-service)
-`nfc` service (bridge-service) <-> `system` service (bridge-system-service)
-`nfc` service (bridge-service) <-> `shell` service (bridge-shell-service)
+```
+              ┌──────────────────────────────┐
+              │                              │
+              │     User's untrusted_app     │
+              │                              │
+              └──────────────────────────────┘
+                              ▲
+                              │
+                              ▼
+              ┌──────────────────────────────┐
+              │                              │
+              │ nfc service (bridge-service) │
+              │                              │
+              └──────────────────────────────┘
+                    ▲                   ▲
+                    │                   │
+                    ▼                   ▼
+┌──────────────────────────┐     ┌──────────────────────────┐
+│                          │     │                          │
+│  bridge-system-service   │     │   bridge-shell-service   │
+│                          │     │                          │
+└──────────────────────────┘     └──────────────────────────┘
+```
 
 `bridge-shell-service` can do ADB developer things that apps aren't allowed to do. `bridge-system-service` has higher priviledges than `shell` in most scenarios.
 

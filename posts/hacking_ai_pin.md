@@ -1,5 +1,5 @@
 +++
-date = '2025-10-04T20:27:09-07:00'
+date = '2025-10-07T16:00:00-07:00'
 draft = false
 title = 'Hacking the Humane Ai Pin'
 +++

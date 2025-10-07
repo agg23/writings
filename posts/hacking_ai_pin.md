@@ -10,7 +10,7 @@ title = 'Hacking the Humane Ai Pin'
 
 On February 18, 2025, Humane announced it would be shutting down all services for the always online Humane Ai Pin in ten days, [following a sale to HP](https://web.archive.org/web/20250219012718/https://humane.com/media/humane-hp). I had been vaguely aware of the Ai Pin, definitely more so than the average tech person, as I have a close friend who was one of the earliest adopters and eventually joined the Humane team to actively work on the device, but I ultimately knew little about them. I did know that they were small, ran Android, had good industrial design, and had a cool laser. I also have drempt of a personal, local always listening device since I was a young teenager. I was a little more confident in my ability to help shape a niche device's ecosystem after my experiences driving the Analogue Pocket's growth, so I decided to go looking for disgruntled users looking to sell their devices.
 
-![Stock image of the Lunar Ai Pin](../images/hacking_ai_pin/lunar_stock_photo.webp)
+![Stock image of the Lunar Ai Pin](../images/hacking_ai_pin/lunar_stock_photo.webp "Courtesy Humane Press Kit")
 
 I relatively quickly was able to secure two Pins, three boosters, and a charging "egg" from Reddit for a total of $300 (a price that I originally thought might be too much, though I would later see them selling for $300-500 each). One of my Pins was supposed to be locked (no code from a previous owner), so possibly unusable, but that was OK, as we were here to learn and break things. I paid for expedited shipping so I could get the devices before the shutdown. Unfortunately for me, my two Pins arrived on the fated shutdown day February 28th... ...about 2 hours _after_ the servers were shut off. There was a big community call on the Humane community Discord server (they called themselves reHumane) counting down as the servers were turned off. Some big fans and current/previous Humane employees spoke about their experiences with the Ai Pin. I found it to be a weird experience overall, but it was interesting to see how passionate people were about these devices. Unfortunately with the devices I had purchased, the "working" device had been factory reset. Turns out that without Humane's servers to talk to, you can never activate the device, so I was stuck in the onboarding screens. I would later acquire another Pin (a still sealed one) bringing the total to three, but all three were stuck on onboarding, thus I never got to experience what a working Ai Pin was like.
 
@@ -34,6 +34,8 @@ Suddenly one day about a week in I got a random anonymous message on Signal cont
 ## First access
 
 As soon as I gained ADB access to the Pin I tried running a demo app, and a few minutes later I had it projecting my cat profile picture and displaying a live video feed from the camera. That's really good! Maybe we have full access to all of the hardware, and we're basically free to modify the device at will. I dumped as much of the filesystem as possible (which is necessarily incomplete due to the limited access due to non-root user) and figured how to disable the onboarding experience, dropping me into the (very non-functional) base `SystemNavigation` UI. However, attempting to connect to a remote HTTP server resulted in an exception and `avc` errors logged to the console.
+
+![First custom image being displayed on my Pin](../images/hacking_ai_pin/first_image.webp)
 
 ## Searching for a crack
 
@@ -287,7 +289,7 @@ Once this process is completed, we now have mostly working Android environment. 
 
 ## Conclusion
 
-That's the state of efforts to save the Ai Pin from being complete ewaste. Obviously this took an insane amount of time that I should have dedicated towards more productive topics, but it was a very interesting learning experience to me. I don't know how security researchers do this all of the time. If any of this interests you, or particularly if you're interested in working on the userland applications on the Ai Pin, I would [welcome help on MABL](https://github.com/PenumbraOS/mabl), my launcher and voice assistant specifically designed for this environment. Turns out it's a lot of work for one person to break into a device while trying to replicate a state of the art, low power, highly private, personal assistant.
+That's the state of efforts to save the Ai Pin from being complete ewaste. Obviously this took an insane amount of time that I should have dedicated towards more productive topics, but it was a very interesting learning experience to me. I don't know how security researchers do this all of the time. If any of this interests you, or particularly if you're interested in working on the userland applications on the Ai Pin, I would [welcome help on MABL](https://github.com/PenumbraOS/mabl), my launcher and voice assistant specifically designed for this environment. Turns out it's a lot of work for one person to break into a device while trying to replicate a state of the art, low power, highly private, personal assistant. You can also feel free to reach out to me directly.
 
 ### P.S. eSIM
 
